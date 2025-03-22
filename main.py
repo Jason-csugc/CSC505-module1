@@ -9,21 +9,23 @@ def roll_dice():
         dice_type = int(dice_type_var.get().lstrip('d'))
         
         if num_dice <= 0:
-            raise ValueError("Number of dice must be positive.")
+            raise ValueError("Can't roll no dice! Duh")
         
         if dice_type not in [4, 6, 8, 10, 12, 20]:
-            raise ValueError("Invalid dice type.")
+            raise ValueError("What do you think we are playing, Dungeon Crawl Classic")
         
         # Roll the dice
         rolls = [random.randint(1, dice_type) for _ in range(num_dice)]
         result_label.config(text=f"Results: {', '.join(map(str, rolls))}")
+        total_label.config(text=f"Total: {sum(rolls)}")
     
     except ValueError as e:
-        messagebox.showerror("Invalid Input", f"Error: {e}")
+        messagebox.showerror("Invalid Input", f"Error: {e.args[0]}")
 
 # Function to clear the results
 def clear_rolls():
     result_label.config(text="Results: ")
+    total_label.config(text="Total: ")
     num_dice_entry.delete(0,tk.END)
     num_dice_entry.insert(0, "1")
     dice_type_var.set('d4')
@@ -54,9 +56,13 @@ roll_button.grid(row=2, column=0, columnspan=2, pady=10)
 result_label = tk.Label(root, text="Results: ")
 result_label.grid(row=3, column=0, columnspan=2, padx=10, pady=10)
 
+# Label to display total
+total_label = tk.Label(root, text="Total: ")
+total_label.grid(row=4, column=0, columnspan=2, padx=10, pady=10)
+
 # Clear button
 clear_button = tk.Button(root, text="Clear", command=clear_rolls)
-clear_button.grid(row=4, column=0, columnspan=2, pady=10)
+clear_button.grid(row=5, column=0, columnspan=2, pady=10)
 
 # Start the Tkinter main loop
 root.mainloop()
