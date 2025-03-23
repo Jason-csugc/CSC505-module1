@@ -13,7 +13,6 @@ def roll_dice():
         if dice_type not in [4, 6, 8, 10, 12, 20]:
             raise ValueError("What do you think we are playing, Dungeon Crawl Classic")
         
-        # Roll the dice
         rolls = [random.randint(1, dice_type) for _ in range(num_dice)]
         result_label.config(text=f"Results: {', '.join(map(str, rolls))}")
         total_label.config(text=f"Total: {sum(rolls)}")
